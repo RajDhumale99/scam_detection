@@ -4,6 +4,34 @@ import pickle
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
+import nltk
+import ssl
+
+# Handle SSL certificate issues
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
+@st.cache_resource
+def setup_nltk():
+    """Download NLTK resources with updated names"""
+    try:
+        # Try new resource names first (NLTK 3.8+)
+        nltk.download('punkt_tab', quiet=True)
+        nltk.download('stopwords', quiet=True)
+    except:
+        try:
+            # Fallback to old resource names
+            nltk.download('punkt', quiet=True) 
+            nltk.download('stopwords', quiet=True)
+        except:
+            pass
+    return True
+
+setup_nltk()
 
 ps = PorterStemmer()
 
