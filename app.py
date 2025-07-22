@@ -2,8 +2,6 @@ import streamlit as st
 import string
 import pickle
 import nltk
-nltk.download('punkt', quiet=True)
-nltk.download('stopwords', quiet=True)
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 
